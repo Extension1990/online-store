@@ -3,10 +3,11 @@ import { Button } from '../../shared/components/button/button';
 import { RouterLink } from '@angular/router';
 import { form, FormField, minLength, required } from '@angular/forms/signals';
 import { FormsModule } from '@angular/forms';
+import { FormErrors } from '../../shared/components/form-errors/form-errors';
 
 @Component({
   selector: 'app-login',
-  imports: [Button, RouterLink, FormField, FormsModule],
+  imports: [Button, RouterLink, FormField, FormsModule, FormErrors],
   templateUrl: './login.html',
   host: {
     class: 'min-h-screen flex items-center justify-center bg-slate-200 p-4'

@@ -12,12 +12,7 @@
         class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-900 focus:border-transparent outline-none transition-shadow"
         placeholder="Enter your username"
       />
-      <!-- <app-form-errors></app-form-errors> -->
-      @if (!loginForm.username().valid() && loginForm.username().touched()) {
-        @for (error of loginForm.username().errors(); track error) {
-          <p class="text-sm text-red-600 mt-1">{{ error.message }}</p>
-        }
-      }
+      <app-form-errors [control]="loginForm.username()"></app-form-errors>
     </div>
 
     <div>
@@ -30,15 +25,10 @@
         class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-900 focus:border-transparent outline-none transition-shadow"
         placeholder="Enter your password"
       />
-      <!-- <app-form-errors></app-form-errors> -->
-      @if (!loginForm.password().valid() && loginForm.password().touched()) {
-        @for (error of loginForm.password().errors(); track error) {
-          <p class="text-sm text-red-600 mt-1">{{ error.message }}</p>
-        }
-      }
+      <app-form-errors [control]="loginForm.password()"></app-form-errors>
     </div>
 
-    <button size="lg" appButton type="submit" class="w-full">Sign In</button>
+    <button size="lg" appButton type="submit" [disabled]="loginForm().invalid()" class="w-full">Sign In</button>
 
     <p class="text-sm text-center text-slate-500 mt-4">
       Don't have an account?
