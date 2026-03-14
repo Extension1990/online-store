@@ -38,6 +38,12 @@ export const authFeatures = createFeature({
             error: null
         })),
 
+        on(authActions.register, (state: any) => ({
+            ...state,
+            isLoading: true,
+            error: null
+        })),
+
         on(authActions.registerSuccess, (state: any) => ({
             ...state,
             isLoading: false
