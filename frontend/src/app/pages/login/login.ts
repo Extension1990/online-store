@@ -1,9 +1,13 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Button } from '../../shared/components/button/button';
 import { RouterLink } from '@angular/router';
 import { form, FormField, minLength, required } from '@angular/forms/signals';
 import { FormsModule } from '@angular/forms';
 import { FormErrors } from '../../shared/components/form-errors/form-errors';
+import { Store } from '@ngrx/store';
+import { authActions } from '../../shared/store/auth-actions';
+import { authFeatures } from '../../shared/store/auth-feature';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-login',
@@ -26,10 +30,13 @@ export class Login {
     minLength(rootPath.password, 6, {message: 'Password must be atleast 6 characters long.'})
   });
 
+  private readonly store = inject(Store);
+  protected readonly isLoading = toSignal(this.store.select(authFeatures.selectIsLoading));
+
   login(event: Event) {
     event.preventDefault();
     if(this.loginForm().valid()) {
-       console.log('Login Data', this.loginForm().value());
+       this.store.dispatch(authActions.login(this.loginForm().value()));
     } else {
       console.log('Login form invalid!');
     }

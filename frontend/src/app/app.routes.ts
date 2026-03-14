@@ -15,6 +15,11 @@ export const routes: Routes = [
     canActivate: [],
     children: [
       {
+        path: '',
+        redirectTo: 'products',
+        pathMatch: 'full',
+      },
+      {
         path: 'profile',
         loadComponent: () => import('./pages/profile/profile').then((m) => m.Profile),
       },

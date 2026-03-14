@@ -56,7 +56,7 @@
       <app-form-errors [control]="registerForm.confirmPassword()"></app-form-errors>
     </div>
 
-    <button size="lg" appButton type="submit" class="w-full">Register</button>
+    <button size="lg" appButton type="submit" [disabled]="registerForm().invalid()" class="w-full">Register</button>
 
     <p class="text-sm text-center text-slate-500 mt-4">
       Already have an account?
