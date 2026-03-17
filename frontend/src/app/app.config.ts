@@ -7,8 +7,7 @@ import { provideEffects } from '@ngrx/effects';
 import { authFeatures } from './shared/store/auth-feature';
 import * as authEffects from './shared/store/auth-effect';
 import { provideNgToast } from 'ng-angular-popup';
-import { LucideAngularModule } from 'lucide-angular';
-import { LogOut, User, ShoppingCart } from 'lucide-angular';
+import { LucideAngularModule, LogOut, User, ShoppingCart, Github, Twitter } from 'lucide-angular';
 
 export const API_URL = new InjectionToken<string>('API_URL');
 
@@ -29,7 +28,7 @@ export const appConfig: ApplicationConfig = {
       minWidth: 350,
     }),
     importProvidersFrom(
-      LucideAngularModule.pick({ LogOut, User, ShoppingCart })
+      LucideAngularModule.pick({ LogOut, User, ShoppingCart, Github, Twitter })
     ),
   ],
 };
