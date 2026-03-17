@@ -8,6 +8,7 @@ import { LucideAngularModule } from 'lucide-angular';
 import { CurrencyPipe } from '@angular/common';
 import { Button } from '../../shared/components/button/button';
 import { RouterLink } from '@angular/router';
+import { CartApi } from './services/cart-api';
 
 @Component({
   selector: 'app-cart',
@@ -18,6 +19,7 @@ import { RouterLink } from '@angular/router';
 export class Cart {
   protected readonly icons = { ShoppingBag, Plus, Minus, Trash2 };
   private readonly store = inject(Store);
+  private readonly cartApi = inject(CartApi);
 
   protected readonly loading = toSignal(this.store.select(cartFeature.selectLoading));
   protected readonly items = toSignal(this.store.select(cartFeature.selectItems));
@@ -25,6 +27,14 @@ export class Cart {
   protected readonly cartCount = toSignal(this.store.select(cartFeature.selectCartCount), {
     initialValue: 0,
   });
+
+  ngOnInit() {
+    const userId = 1;
+    this.cartApi.getCartByUserId(userId).subscribe({
+      next: (items) => console.log('Cart items:', items),
+      error: (err) => console.error('Error fetching cart:', err),
+    });
+  }
 
   protected onRemove(productId: number) {
     this.store.dispatch(cartActions.removeFromCart({ productId }));

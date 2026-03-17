@@ -2,9 +2,12 @@ import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { MyStorage } from '../../../shared/services/storage';
 import { cartActions } from './cart-actions';
-import { map, tap, withLatestFrom } from 'rxjs';
+import { catchError, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { cartFeature } from './cart-feature';
+import { authFeatures } from '../../../shared/store/auth-feature';
+import { CartApi } from '../services/cart-api';
+import { NgToastService } from 'ng-angular-popup';
 
 const CART_STORAGE_KEY = 'ngrxstore_cart';
 export const loadCartEffect = createEffect(
@@ -24,10 +27,13 @@ export const loadCartEffect = createEffect(
 );
 
 export const addToCartEffect = createEffect(
-  (actions$ = inject(Actions)) => {
+  (actions$ = inject(Actions), toast = inject(NgToastService)) => {
     return actions$.pipe(
       ofType(cartActions.addToCart),
-      map(({ product }) => cartActions.addToCartSuccess({ product }))
+      map(({ product }) => {
+        toast.success(`${product.title || 'Product'} added to cart`, 'SUCCESS');
+        return cartActions.addToCartSuccess({ product });
+      })
     );
   },
   {
@@ -54,4 +60,22 @@ export const persistCartEffect = createEffect(
     functional: true,
     dispatch: false,
   }
+);
+
+export const loadCartByUserEffect = createEffect(
+  (actions$ = inject(Actions), cartApi = inject(CartApi), store = inject(Store)) => {
+    return actions$.pipe(
+      ofType(cartActions.load),
+      withLatestFrom(store.select(authFeatures.selectUserId)),
+      switchMap(([_, userId]) => {
+        if (!userId) return of(cartActions.loadFailure({ error: 'No user ID' }));
+
+        return cartApi.getCartByUserId(userId).pipe(
+          map(items => cartActions.loadSuccess({ items })),
+          catchError(error => of(cartActions.loadFailure({ error: error.message })))
+        );
+      })
+    );
+  },
+  { functional: true }
 );
