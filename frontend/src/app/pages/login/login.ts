@@ -20,8 +20,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
 })
 export class Login {
   loginModel = signal({
-    username: '',
-    password: ''
+    username: 'johnd',
+    password: 'm38rmF$'
   });
 
   loginForm = form(this.loginModel, (rootPath) => {
