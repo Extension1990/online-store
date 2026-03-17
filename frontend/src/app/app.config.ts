@@ -12,6 +12,10 @@ import { LucideAngularModule, LogOut, User, ShoppingCart, Github, Twitter, Mail,
 import { profileFeature } from './pages/profile/store/profile-feature';
 import * as productEffect from './pages/products/store/product-effect';
 import { productFeature } from './pages/products/store/product-feature';
+import { cartFeature } from './pages/cart/store/cart-feature';
+import * as loadCartEffect from './pages/cart/store/cart-effect';
+import * as addToCartEffect from './pages/cart/store/cart-effect';
+import * as persistCartEffect from './pages/cart/store/cart-effect';
 
 export const API_URL = new InjectionToken<string>('API_URL');
 
@@ -20,10 +24,11 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideStore(),
-    provideEffects([authEffects, profileEffects, productEffect]),
+    provideEffects([authEffects, profileEffects, productEffect, loadCartEffect, addToCartEffect, persistCartEffect]),
     provideState(authFeatures),
     provideState(profileFeature),
     provideState(productFeature),
+    provideState(cartFeature),
     {
       provide: API_URL,
       useValue: 'https://fakestoreapi.com'

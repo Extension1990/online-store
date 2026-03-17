@@ -1,6 +1,5 @@
 .container {
-  overflow-y: scroll;
-  -ms-overflow-style: none;
+  overflow: auto !important;
   scrollbar-width: none;
 }
 

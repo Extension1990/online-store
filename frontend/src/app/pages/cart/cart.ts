@@ -6,10 +6,12 @@ import { cartActions } from './store/cart-actions';
 import { cartFeature } from './store/cart-feature';
 import { LucideAngularModule } from 'lucide-angular';
 import { CurrencyPipe } from '@angular/common';
+import { Button } from '../../shared/components/button/button';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
-  imports: [LucideAngularModule, CurrencyPipe],
+  imports: [LucideAngularModule, CurrencyPipe, Button, RouterLink],
   templateUrl: './cart.html',
   styleUrl: './cart.css',
 })
