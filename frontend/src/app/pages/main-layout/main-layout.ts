@@ -8,5 +8,8 @@ import { Navbar } from '../../core/components/navbar/navbar';
   imports: [RouterOutlet, Navbar, Footer],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.css',
+  host: {
+    class: 'min-h-screen flex flex-col'
+  }
 })
 export class MainLayout {}
