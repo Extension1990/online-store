@@ -3,8 +3,8 @@ import { Product } from '../types/product-type';
 import { productActions } from './product-actions';
 
 export type ProductState = {
-  products: Product[]; // 20 records
-  filteredProducts: Product[]; // filtered records based on search
+  products: Product[]; 
+  filteredProducts: Product[];
   searchQuery: string | null;
   error: string | null;
   loading: boolean;
