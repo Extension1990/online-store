@@ -9,6 +9,7 @@ import * as authEffects from './shared/store/auth-effect';
 import * as profileEffects from './pages/profile/store/profile-effect';
 import { provideNgToast } from 'ng-angular-popup';
 import { LucideAngularModule, LogOut, User, ShoppingCart, Github, Twitter, Mail, MapPin, Phone,  } from 'lucide-angular';
+import { profileFeature } from './pages/profile/store/profile-feature';
 
 export const API_URL = new InjectionToken<string>('API_URL');
 
@@ -19,6 +20,7 @@ export const appConfig: ApplicationConfig = {
     provideStore(),
     provideEffects([authEffects, profileEffects]),
     provideState(authFeatures),
+    provideState(profileFeature),
     {
       provide: API_URL,
       useValue: 'https://fakestoreapi.com'
